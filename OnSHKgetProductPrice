@@ -1,0 +1,36 @@
+<?php
+/*
+ *
+ * Shopkeeper plugin example
+ * 
+ * System event: OnSHKgetProductPrice
+ * 
+ */
+
+
+
+$output = 0;
+
+$price_tv_name = 'price';
+$party_tv_name = 'shk_inventory';
+
+$p_id = isset($purchaseArray['shk-id']) && is_numeric($purchaseArray['shk-id']) ? $purchaseArray['shk-id'] : 0;
+   
+
+            $price_tv = $modx->getObject('modTemplateVar',array('name'=>$price_tv_name));
+            $party_tv = $modx->getObject('modTemplateVar',array('name'=>$party_tv_name));
+            $price_tv_value = $price_tv->renderOutput($p_id);
+            $party_tv_value = $party_tv->renderOutput($p_id);
+
+    if($party_tv_value == 0){
+        $discount = 50; //скидка 50%
+        $new_price = round($price_tv_value * (1-$discount/100), 2);
+        
+        $output = $new_price;
+    }else{
+        
+       $output =  $price_tv_value; 
+    }
+
+$modx->event->_output = '';
+$modx->event->output($output);
