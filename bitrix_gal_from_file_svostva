@@ -1,0 +1,7 @@
+<?foreach($arItem[DISPLAY_PROPERTIES][ATT_GALLERY_NEW][FILE_VALUE] as $arPhoto):?> 
+                                <li>
+                                    <a class="thumb" href="<?php $arPhoto[SRC]; ?>" title="Title #17">
+                                       <img src="<?=CImg::Resize($arPhoto[SRC], 150, 100, "CROP");?>" alt="<?=$arItem["NAME"]?>">
+                                    </a>
+                                </li>
+							<?endforeach;?>
